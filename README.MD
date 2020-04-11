@@ -1,0 +1,3 @@
+The Stop Trading on Congressional Knowledge (STOCK) Act was signed into law by President Barack Obama in 2012 after a series of revelations of insider trading done by congressional members. 
+
+This act forced a requirement to report all their trades to the Ethics of Financial Disclosures. Information that is publicly available, but very hard to navigate. This is an attempt to make this information much more accessible. Hopefully this can lead to people building something cool of the data.
