@@ -1,19 +1,22 @@
 from flask_restful import Resource, reqparse
 from models.trans import TransactionModel
+from models.politician import PoliticianModel
 
 
 class Transaction(Resource):
-    parser = reqparse.RequestParser()
-    parser.add_argument('transaction_type',
-                        type=str,
-                        required=True,
-                        help="Every transaction needs a transaction_type."
-                        )
-    parser.add_argument('politician_id',
-                        type=int,
-                        required=True,
-                        help="Every transaction needs a politician_id."
-                        )
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('transaction_type',
+                            type=str,
+                            required=True,
+                            help="Every transaction needs a transaction_type."
+                            )
+        self.parser.add_argument('politician_id',
+                            type=int,
+                            required=True,
+                            help="Every transaction needs a politician_id."
+                            )
+        super(Transaction, self).__init__()
 
     def get(self, name): 
         transaction = TransactionModel.find_by_name(name)
@@ -25,7 +28,7 @@ class Transaction(Resource):
         if TransactionModel.find_by_name(name):
             return {'message': f"A transaction with name '{name}' already exists."}, 400
 
-        data = Transaction.parser.parse_args()
+        data = self.parser.parse_args()
 
         transaction = TransactionModel(name, **data)
         print(transaction)
