@@ -8,73 +8,60 @@ class Transaction(Resource):
         self.parser = reqparse.RequestParser()
         # https://flask-restful.readthedocs.io/en/latest/reqparse.html#argument-locations
         # DOCUMENT PROPERTIES
-
         # POLITICIAN PROPERTIES
         self.parser.add_argument(
             "first_name",
-            type=str,
             location="json",
             help="Every transaction needs a first_name.",
         )
         self.parser.add_argument(
             "last_name",
-            type=str,
             location="json",
             help="Every transaction needs a last_name.",
         )
         self.parser.add_argument(
             "office",
-            type=str,
             location="json",
             help="Every transaction needs an office.",
         )
-
         # TRANSACTION PROPERTIES
         self.parser.add_argument(
             "asset_name",
-            type=str,
             required=True,
             location="json",  
             help="Every transaction needs an asset_name.",
         )
         self.parser.add_argument(
             "asset_type",
-            type=str,
             required=True,
             help="Every transaction needs a asset_type.",
         )
         self.parser.add_argument(
             "ticker",
-            type=str,
             required=False,
         )
         self.parser.add_argument(
             "owner",
-            type=str,
             required=True,
             help="Every transaction needs an owner.",
         )
         self.parser.add_argument(
             "transaction_type",
-            type=str,
             required=True,
             help="Every transaction needs a transaction_type.",
         )
         self.parser.add_argument( # CHANGE TO DATETIME
             "transaction_date", # CHANGE TO DATETIME
-            type=str, # CHANGE TO DATETIME
             required=True, # CHANGE TO DATETIME
             help="Every transaction needs a transaction_date.", # CHANGE TO DATETIME
         )
         self.parser.add_argument(
             "amount",
-            type=str,
             required=True,
             help="Every transaction needs a amount.",
         )
         self.parser.add_argument(
             "comment",
-            type=str,
             required=False,
         )
         super(Transaction, self).__init__()

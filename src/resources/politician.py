@@ -5,19 +5,16 @@ class Politician(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('first_name',
-                            type=str,
                             required=True,
                             location = 'json', #https://flask-restful.readthedocs.io/en/latest/reqparse.html#argument-locations
                             help="Every transaction needs a first_name."
                             )
         self.parser.add_argument('last_name',
-                            type=str,
                             required=True,
                             location = 'json',
                             help="Every politician needs a last_name."
                             )
         self.parser.add_argument('office',
-                            type=str,
                             required=True,
                             location = 'json',
                             help="Every politician needs an office."
