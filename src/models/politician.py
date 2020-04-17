@@ -31,16 +31,6 @@ class PoliticianModel(db.Model):
                 transaction.json() for transaction in self.transactions.all()
             ],
         }
-
-    @classmethod
-    def find_by_name(cls, name):
-        return cls.query.filter_by(
-            name=name
-        ).first()  # SELECT * FROM items WHERE name=name
-
-    def find_id_by_name(cls, first_name, last_name):
-        query = cls.query.filter_by(last_name=last_name).filter_by(first_name=first_name).first()
-        print(query.id)
     
     @classmethod
     def find_politician(cls, first_name, last_name):
