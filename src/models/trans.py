@@ -9,27 +9,46 @@ class TransactionModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     asset_name = db.Column(db.String(320))
+    asset_type = db.Column(db.String(70))
+    ticker = db.Column(db.String(10))
+    owner = db.Column(db.String(20))
+
     transaction_type = db.Column(db.String(20))
+    transaction_date = db.Column(db.String(20))
+    amount = db.Column(db.String(35))
+    comment = db.Column(db.String(1200))
 
     politician_id = db.Column(db.Integer, db.ForeignKey('politicians.id'))
     politician = db.relationship('PoliticianModel')
 
-    def __init__(self, asset_name, transaction_type, politician_id):
+    def __init__(self, asset_name, asset_type, ticker, owner, transaction_type, transaction_date, amount, comment, politician_id):
 
         self.asset_name = asset_name
+        self.asset_type = asset_type
+        self.ticker = ticker
+        self.owner = owner
         self.transaction_type = transaction_type
+        self.transaction_date = transaction_date # CHANGE TO DATETIME
+        self.amount = amount
+        self.comment = comment
+
         self.politician_id = politician_id
 
     def json(self):
         return {
             'asset_name': self.asset_name,
+            'asset_type': self.asset_type,
+            'ticker': self.ticker,
+            'owner': self.owner,
             'transaction_type': self.transaction_type,
+            'transaction_date': self.transaction_date,
+            'amount': self.amount,
+            'comment': self.comment,
             'politician_id': self.politician_id
         }
 
     @classmethod
     def find_by_name(cls, asset_name):
-        # SELECT * FROM items WHERE name=name
         return TransactionModel.query.filter_by(asset_name=asset_name).first()
 
     def save_to_db(self):
