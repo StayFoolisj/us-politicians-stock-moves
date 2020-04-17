@@ -23,7 +23,7 @@ def create_tables():
 api.add_resource(PoliticianList, '/politicians', endpoint = 'politicians')
 api.add_resource(Politician, '/politician/<string:name>', endpoint = 'politician')
 api.add_resource(TransactionList, '/transactions', endpoint = 'transactions')
-api.add_resource(Transaction, '/transaction/<string:name>', endpoint = 'transaction')
+api.add_resource(Transaction, '/transaction/<string:transaction_id>', endpoint = 'transaction')
 
 if __name__ == '__main__':
     db.init_app(app)

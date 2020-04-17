@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 from models.trans import TransactionModel
 from models.politician import PoliticianModel
-
+from pprint import pprint
 
 class Transaction(Resource):
     def __init__(self):
@@ -79,19 +79,20 @@ class Transaction(Resource):
         )
         super(Transaction, self).__init__()
 
-    def get(self, name):
-        transaction = TransactionModel.find_by_name(name)
+    def get(self, transaction_id):
+        transaction = TransactionModel.find_transaction(transaction_id)
         if transaction:
             return transaction.json()
         return {"message": "Transaction not found"}, 404
 
-    def post(self, name):
+    def post(self, transaction_id):
         """
         We POST new transactions without knowledge of the unique politician_id. Only first_name and last_name. 
         For this reason, we first query our db for the politician. If not found, we create the politician first
         """
-        if TransactionModel.find_by_name(name):
-            return {"message": f"A transaction with name '{name}' already exists."}, 400
+        print(transaction_id)
+        if TransactionModel.find_transaction(transaction_id):
+            return {"message": f"A transaction with name '{transaction_id}' already exists."}, 400
 
         data = self.parser.parse_args()
 
@@ -117,8 +118,9 @@ class Transaction(Resource):
         del(data['first_name'])
         del(data['last_name'])
         del(data['office'])
+        pprint(data)
 
-        transaction = TransactionModel(**data)
+        transaction = TransactionModel(transaction_id, **data)
  
         try:
             transaction.save_to_db()
