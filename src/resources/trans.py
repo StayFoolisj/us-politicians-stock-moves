@@ -64,6 +64,11 @@ class Transaction(Resource):
             "comment",
             required=False,
         )
+        self.parser.add_argument("document_id")
+        self.parser.add_argument("document_url")
+        self.parser.add_argument("document_type")
+        self.parser.add_argument("filing_date")
+        
         super(Transaction, self).__init__()
 
     def get(self, transaction_id):
@@ -94,7 +99,7 @@ class Transaction(Resource):
         # If not found, we create, save to db and get their politician_id
         else:
             politician = PoliticianModel(
-                "name", data["first_name"], data["last_name"], data["office"]
+                data["first_name"], data["last_name"], data["office"]
             )
 
             politician.save_to_db()

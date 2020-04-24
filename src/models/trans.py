@@ -17,6 +17,11 @@ class TransactionModel(db.Model):
     amount = db.Column(db.String(35))
     comment = db.Column(db.String(1200))
 
+    document_id = db.Column(db.String(70))
+    document_url = db.Column(db.String(100))
+    document_type = db.Column(db.String(60))
+    filing_date = db.Column(db.String(40))
+
     politician_id = db.Column(db.Integer, db.ForeignKey("politicians.id"))
     politician = db.relationship("PoliticianModel")
 
@@ -31,6 +36,10 @@ class TransactionModel(db.Model):
         transaction_date,
         amount,
         comment,
+        document_id,
+        document_url,
+        document_type,
+        filing_date,
         politician_id,
     ):
 
@@ -41,6 +50,12 @@ class TransactionModel(db.Model):
         self.transaction_id = transaction_id
         self.transaction_type = transaction_type
         self.transaction_date = transaction_date  # CHANGE TO DATETIME
+
+        self.document_id = document_id
+        self.document_url = document_url
+        self.document_type = document_type
+        self.filing_date = filing_date
+
         self.amount = amount
         self.comment = comment
 
@@ -55,6 +70,10 @@ class TransactionModel(db.Model):
             "transaction_id": self.transaction_id,
             "transaction_type": self.transaction_type,
             "transaction_date": self.transaction_date,
+            "document_id": self.document_id,
+            "document_url": self.document_url,
+            "document_type": self.document_type,
+            "filing_date": self.filing_date,
             "amount": self.amount,
             "comment": self.comment,
             "politician_id": self.politician_id,
