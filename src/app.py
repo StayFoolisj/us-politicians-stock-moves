@@ -21,7 +21,7 @@ def create_tables():
     db.create_all()
 
 api.add_resource(PoliticianList, '/politicians', endpoint = 'politicians')
-api.add_resource(Politician, '/politician/<string:name>', endpoint = 'politician')
+api.add_resource(Politician, '/politician/<int:id>', endpoint = 'politician')
 api.add_resource(TransactionList, '/transactions', endpoint = 'transactions')
 api.add_resource(Transaction, '/transaction/<string:transaction_id>', endpoint = 'transaction')
 
