@@ -13,26 +13,29 @@ class PoliticianModel(db.Model):
 
     transactions = db.relationship("TransactionModel", lazy="dynamic")
 
-    def __init__(self, name, first_name, last_name, office):
-        self.name = name
+    def __init__(self, first_name, last_name, office):
         self.first_name = first_name
         self.last_name = last_name
         self.office = office
 
     def json(self):
         return {
-            "name": self.name,
             "first_name": self.first_name,
             "last_name": self.last_name,
             "office": self.office,
+            "politician_id": self.id,
             "transactions": [
                 transaction.json() for transaction in self.transactions.all()
             ],
         }
     
     @classmethod
-    def find_politician(cls, first_name, last_name):
+    def find_politician(cls, first_name, last_name): # Should add id as a keyword argument
         return cls.query.filter_by(last_name=last_name).filter_by(first_name=first_name).first()
+
+    @classmethod
+    def find_by_id(cls, id):
+        return cls.query.filter_by(id=id).first()
 
     def save_to_db(self):
         db.session.add(self)
